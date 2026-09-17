@@ -12,7 +12,9 @@ https://docs.djangoproject.com/en/6.1/ref/settings/
 
 from pathlib import Path
 
+import rest_framework_simplejwt
 from decouple import config
+from rest_framework.templatetags import rest_framework
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -39,6 +41,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'accounts.apps.AccountsConfig',
+    'resources.apps.ResourcesConfig',
+    'bookings.apps.BookingsConfig',
+
+    'rest_framework',
+    'rest_framework_simplejwt'
+
 ]
 
 MIDDLEWARE = [
@@ -121,6 +130,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOR=BASE_DIR / 'static'
+
+AUTH_USER_MODEL = 'accounts.User'
 
 
 # Email
@@ -130,4 +142,14 @@ MAILERS = {
     'default': {
         'BACKEND': 'django.core.mail.backends.console.EmailBackend',
     },
+}
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    )
 }
