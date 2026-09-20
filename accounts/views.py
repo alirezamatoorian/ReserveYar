@@ -1,8 +1,10 @@
 from rest_framework import status
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .serializers import SendOtpSerializer,VerifyOtpSerializer
+from rest_framework.generics import RetrieveUpdateAPIView
+from .models import Profile
+from .serializers import SendOtpSerializer, VerifyOtpSerializer, ProfileSerializer
 from .services import OtpService
 
 # Create your views here.
@@ -26,4 +28,12 @@ class VerifyOtpView(APIView):
         phone=serializer_class.validated_data['phone']
         code=serializer_class.validated_data['code']
         tokens=OtpService.verify_otp(phone,code)
-        return Response({"message:","ورود موفقیت آمیز","tokens:",tokens},status=status.HTTP_200_OK)
+        return Response({"message":"ورود موفقیت آمیز","tokens":tokens},status=status.HTTP_200_OK)
+
+class ProfileView(RetrieveUpdateAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = ProfileSerializer
+
+    def get_object(self):
+        return self.request.user.profile
+
