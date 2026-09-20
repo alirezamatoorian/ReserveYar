@@ -1,3 +1,4 @@
+import re
 from rest_framework import serializers
 from .models import Profile
 from .validators import normalize_iranian_phone
@@ -35,3 +36,12 @@ class ProfileSerializer(serializers.ModelSerializer):
         model = Profile
         fields=["phone","first_name","last_name","email","no_show_count","suspended_until"]
         read_only_fields=["no_show_count","suspended_until"]
+
+    def validate_email(self,value):
+        value=value.lower().strip()
+        return value
+
+    def validate_first_name(self, value):
+        if value and not re.fullmatch(r'[a-zA-Zآ-ی\s]+', value):
+            raise serializers.ValidationError('نام فقط می‌تواند حروف باشد')
+        return value
