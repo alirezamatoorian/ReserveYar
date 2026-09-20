@@ -10,3 +10,8 @@ class SendOtpSerializer(serializers.Serializer):
         if not (value.isdigit() and len(value) == 11):
            raise serializers.ValidationError('Phone number must be digits')
         return value
+
+
+class VerifyOtpSerializer(serializers.Serializer):
+    phone=serializers.CharField(max_length=11)
+    code=serializers.CharField(max_length=6)
