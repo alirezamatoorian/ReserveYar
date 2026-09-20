@@ -20,8 +20,8 @@ class User(AbstractBaseUser,PermissionsMixin):
 
 class Profile(models.Model):
     user=models.OneToOneField(User,on_delete=models.CASCADE)
-    first_name = models.CharField(max_length=100)
-    last_name = models.CharField(max_length=100)
-    email = models.EmailField()
+    first_name = models.CharField(max_length=100,blank=True,null=True)
+    last_name = models.CharField(max_length=100,blank=True,null=True)
+    email = models.EmailField(blank=True,null=True)
     no_show_count=models.IntegerField(default=0)
     suspended_until=models.DateTimeField(null=True,blank=True)

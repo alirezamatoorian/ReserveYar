@@ -4,12 +4,6 @@ from rest_framework.exceptions import ValidationError
 from rest_framework_simplejwt.tokens import RefreshToken
 from .models import User
 
-
-
-
-
-
-
 class OtpService:
     @staticmethod
     def generate_and_send_otp(phone_number):
