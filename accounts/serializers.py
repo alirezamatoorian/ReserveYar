@@ -30,7 +30,7 @@ class VerifyOtpSerializer(serializers.Serializer):
 
 
 class ProfileSerializer(serializers.ModelSerializer):
-    phone=serializers.CharField(source='user.phone',max_length=11,read_only=True)
+    phone=serializers.CharField(source='user.phone',read_only=True)
     class Meta:
         model = Profile
         fields=["phone","first_name","last_name","email","no_show_count","suspended_until"]
