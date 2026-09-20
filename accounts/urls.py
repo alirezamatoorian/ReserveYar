@@ -7,7 +7,7 @@ app_name = 'accounts'
 
 
 urlpatterns = [
-    path('send_otp/',views.SendOtpView.as_view(),name='sendOtp'),
-    path('verify_otp/',views.VerifyOtpView.as_view(),name='verifyOtp'),
+    path('otp/send/',views.SendOtpView.as_view(),name='sendOtp'),
+    path('otp/verify/',views.VerifyOtpView.as_view(),name='verifyOtp'),
     path('profile/',views.ProfileView.as_view(),name='profile'),
 ]

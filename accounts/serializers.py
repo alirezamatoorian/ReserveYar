@@ -10,8 +10,6 @@ class SendOtpSerializer(serializers.Serializer):
     phone=serializers.CharField(max_length=11)
 
     def validate_phone(self,value):
-        if not (value.isdigit() and len(value) == 11):
-           raise serializers.ValidationError('Phone number must be digits')
         return normalize_iranian_phone(value)
 
 
@@ -38,7 +36,8 @@ class ProfileSerializer(serializers.ModelSerializer):
         read_only_fields=["no_show_count","suspended_until"]
 
     def validate_email(self,value):
-        value=value.lower().strip()
+        if value:
+            value=value.lower().strip()
         return value
 
     def validate_first_name(self, value):
