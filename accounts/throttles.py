@@ -1,5 +1,6 @@
 from rest_framework.throttling import SimpleRateThrottle
 from rest_framework.throttling import UserRateThrottle
+from .validators import normalize_iranian_phone
 
 
 class SendOtpPerPhoneThrottle(SimpleRateThrottle):
@@ -9,4 +10,8 @@ class SendOtpPerPhoneThrottle(SimpleRateThrottle):
         phone=request.data.get('phone')
         if not phone:
             return None
-        raise f"otp for {phone}"
+        try:
+            phone=normalize_iranian_phone(phone)
+        except Exception:
+            return None
+        return f"otp-throttles:{phone}"

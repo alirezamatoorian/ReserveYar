@@ -162,7 +162,7 @@ CACHE={
             'client_class':'django_redis.client.DefaultClient',
         },
         'DEFAULT_THROTTLE_RATES': {
-            'send_otp':'3/minute',
+            'send_otp':'5/hours',
         }
 
     }

@@ -8,8 +8,8 @@ class OtpService:
     @staticmethod
     def generate_and_send_otp(phone_number):
         otp_code=str(secrets.randbelow(900000)+100000)
-        cache_key=f'otp for {phone_number}'
-        cooldown_key=f'cooldown for {phone_number}'
+        cache_key=f'otp:{phone_number}'
+        cooldown_key=f'cooldown:{phone_number}'
         if cache.get(cooldown_key):
             raise ValidationError("لطفا کمی صبر کنید و دوباره تلاش کنید")
         cache.set(cache_key,otp_code,timeout=60)
@@ -19,7 +19,7 @@ class OtpService:
 
     @staticmethod
     def verify_otp(phone_number,otp_code):
-        cache_key=f'otp for {phone_number}'
+        cache_key=f'otp:{phone_number}'
         stored_code=cache.get(cache_key)
         if stored_code is None:
             raise ValidationError("Otp code is expired or not requested")
