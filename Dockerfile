@@ -4,10 +4,10 @@ WORKDIR /app
 
 
 COPY requirements.txt ./requirements.txt
-RUN pip install ./requirements.txt
+RUN pip install -r requirements.txt
 COPY . /app
 
 
 EXPOSE 8000
 
-CMD["python","manage.py","runserver","8000"]
+CMD ["python","manage.py","runserver","8000"]

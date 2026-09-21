@@ -160,7 +160,11 @@ CACHE={
         'LOCATION': 'redis://127.0.0.1:6379/1',
         'OPTIONS': {
             'client_class':'django_redis.client.DefaultClient',
+        },
+        'DEFAULT_THROTTLE_RATES': {
+            'send_otp':'3/minute',
         }
+
     }
 
 }
