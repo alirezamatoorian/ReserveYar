@@ -10,8 +10,8 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
-class Resources(models.Model):
-    name=models.CharField(max_length=50)
+class Resource(models.Model):
+    title=models.CharField(max_length=50)
     category=models.ForeignKey(Category, on_delete=models.CASCADE,related_name='resources')
     location=models.TextField()
     description=models.TextField()
@@ -19,5 +19,5 @@ class Resources(models.Model):
     is_active=models.BooleanField(default=True)
 
     def __str__(self):
-        return self.name
+        return self.title
 
