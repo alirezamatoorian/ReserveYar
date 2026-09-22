@@ -10,10 +10,9 @@ class OtpService:
         otp_code=str(secrets.randbelow(900000)+100000)
         cache_key=f'otp:{phone_number}'
         cooldown_key=f'cooldown:{phone_number}'
-        if cache.get(cooldown_key):
+        if not cache.add(cooldown_key,True,timeout=60):
             raise ValidationError("لطفا کمی صبر کنید و دوباره تلاش کنید")
         cache.set(cache_key,otp_code,timeout=60)
-        cache.set(cooldown_key,True,timeout=60)
         print(f"otp for {phone_number}: {otp_code}")
         return True
 

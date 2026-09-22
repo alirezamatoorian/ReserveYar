@@ -163,6 +163,8 @@ CACHE={
         },
         'DEFAULT_THROTTLE_RATES': {
             'send_otp':'5/hours',
+            'send_otp_ip':'10/hours',
+            'verify_otp':'5/hours',
         }
 
     }

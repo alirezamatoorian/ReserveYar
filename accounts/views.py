@@ -5,7 +5,7 @@ from rest_framework.views import APIView
 from rest_framework.generics import RetrieveUpdateAPIView
 from .serializers import SendOtpSerializer, VerifyOtpSerializer, ProfileSerializer
 from .services import OtpService
-from .throttles import SendOtpPerPhoneThrottle
+from .throttles import SendOtpPerPhoneThrottle,SendOtpPerIpThrottle,VerifyOtpPerPhoneThrottle
 
 # Create your views here.
 
@@ -13,7 +13,7 @@ from .throttles import SendOtpPerPhoneThrottle
 
 class SendOtpView(APIView):
     permission_classes = [AllowAny]
-    throttle_classes = [SendOtpPerPhoneThrottle]
+    throttle_classes = [SendOtpPerPhoneThrottle,SendOtpPerIpThrottle]
     def post(self,request):
         serializer=SendOtpSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -23,6 +23,7 @@ class SendOtpView(APIView):
 
 class VerifyOtpView(APIView):
     permission_classes = [AllowAny]
+    throttle_classes = [VerifyOtpPerPhoneThrottle]
     def post(self,request):
         serializer_class = VerifyOtpSerializer(data=request.data)
         serializer_class.is_valid(raise_exception=True)

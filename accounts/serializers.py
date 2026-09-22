@@ -44,3 +44,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         if value and not re.fullmatch(r'[a-zA-Zآ-ی\s]+', value):
             raise serializers.ValidationError('نام فقط می‌تواند حروف باشد')
         return value
+    def validate_last_name(self, value):
+        if value and not re.fullmatch(r'[a-zA-Zآ-ی\s]+', value):
+            raise serializers.ValidationError('نام فقط می‌تواند حروف باشد')
+        return value
